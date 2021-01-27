@@ -14,7 +14,8 @@ class Flat(models.Model):
     price = models.IntegerField("Цена квартиры", db_index=True)
 
     town = models.CharField("Город, где находится квартира", max_length=50, db_index=True)
-    town_district = models.CharField("Район города, где находится квартира", max_length=50, blank=True, help_text='Чертаново Южное')
+    town_district = models.CharField("Район города, где находится квартира", max_length=50, blank=True,
+                                     help_text='Чертаново Южное')
     address = models.TextField("Адрес квартиры", help_text='ул. Подольских курсантов д.5 кв.4')
     floor = models.CharField("Этаж", max_length=3, help_text='Первый этаж, последний этаж, пятый этаж')
 
@@ -26,6 +27,8 @@ class Flat(models.Model):
     construction_year = models.IntegerField("Год постройки здания", null=True, blank=True, db_index=True)
 
     new_building = models.NullBooleanField("Новостройка")
+
+    liked_by = models.ManyToManyField(User, related_name="liked_flats", verbose_name="Кто лайкнул")
 
     def __str__(self):
         return f"{self.town}, {self.address} ({self.price}р.)"

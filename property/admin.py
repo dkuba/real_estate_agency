@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-from .models import Flat, Complaint
+from .models import Flat, Complaint, Owner
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -21,5 +21,14 @@ class ComplaintAdmin(admin.ModelAdmin):
     raw_id_fields = ("flat",)
 
 
+class OwnerAdmin(admin.ModelAdmin):
+    search_fields = ['name', ]
+    list_display = ('name', )
+    list_filter = ('name',)
+    raw_id_fields = ("flats",)
+
+
 admin.site.register(Flat, FlatAdmin)
 admin.site.register(Complaint, ComplaintAdmin)
+
+admin.site.register(Owner, OwnerAdmin)

@@ -44,3 +44,12 @@ class Complaint(models.Model):
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE, verbose_name='квартира')
     message = models.TextField("Текст жалобы")
     created_at = models.DateTimeField("Когда создана жалоба", default=timezone.now, db_index=True)
+
+
+class Owner(models.Model):
+    """Владелец"""
+
+    name = models.CharField("ФИО владельца", max_length=200, db_index=True)
+    phonenumber = models.CharField("Номер владельца", max_length=20, db_index=True)
+    pure_phone = PhoneNumberField(verbose_name="Нормализованный номер владельца", null=True, blank=True, db_index=True)
+    flats = models.ManyToManyField(Flat, related_name='owners', verbose_name='Квартиры в собственности')

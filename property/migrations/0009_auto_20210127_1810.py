@@ -8,7 +8,9 @@ def fill_owner_model(apps, schema_editor):
     Owner = apps.get_model('property', 'Owner')
 
     for flat in Flat.objects.all():
-        p = Owner.objects.get_or_create(name=flat.owner, phonenumber=flat.owners_phonenumber, pure_phone=flat.owner_pure_phone)
+        Owner.objects.get_or_create(name=flat.owner,
+                                    phonenumber=flat.owners_phonenumber,
+                                    pure_phone=flat.owner_pure_phone)
 
 
 def move_backward(apps, schema_editor):
